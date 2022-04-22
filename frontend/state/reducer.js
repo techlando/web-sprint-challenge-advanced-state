@@ -1,14 +1,42 @@
 // ❗ You don't need to add extra reducers to achieve MVP
-import { combineReducers } from 'redux'
+import { combineReducers } from 'redux';
+import * as types from './action-types';
 
+
+// currPosition: initialWheelState
+// current quiz question
+// values of form
 const initialWheelState = 0
 function wheel(state = initialWheelState, action) {
-  return state
-}
+switch( action.type){
+  default:
+    return state;
+}}
 
-const initialQuizState = null
+const initialQuizState = {
+    question: [],
+    choice1: [],
+    choiceB: [],
+    loading: false
+}
 function quiz(state = initialQuizState, action) {
-  return state
+  switch(action.type){
+    case'FETCH_START':
+    return {
+      ...state,
+      loading: true
+    }
+    case "FETCH_SUCCESS":
+      return {
+        ...state,
+        loading: false,
+        question: action.payload,
+        choice1: action.payload,
+        choiceB: action.payload
+      }
+    default:
+      return (state);
+  }
 }
 
 const initialSelectedAnswerState = null

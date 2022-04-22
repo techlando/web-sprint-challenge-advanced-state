@@ -1,5 +1,15 @@
 // ❗ You don't need to add extra action creators to achieve MVP
-export function moveClockwise() { }
+import * as types from './action-types';
+
+export const FETCH_START = "FETCH_START";
+export const FETCH_SUCCESS = "FETCH_SUCCESS";
+
+export function moveClockwise() { 
+  return {
+    type: types.MOVE_CLOCKWISE,
+    payload: id
+  }
+}
 
 export function moveCounterClockwise() { }
 
@@ -7,7 +17,13 @@ export function selectAnswer() { }
 
 export function setMessage() { }
 
-export function setQuiz() { }
+export function setQuiz() { 
+  return ({type: FETCH_START})
+}
+
+export function fetchSuccess({question, choice1, choiceB}) {
+  return ({type: FETCH_SUCCESS, payload: {question, choice1, choiceB}})
+}
 
 export function inputChange() { }
 
