@@ -1,53 +1,112 @@
 import React, { useEffect } from 'react'
 import { connect } from "react-redux";
-import { setQuiz, fetchSuccess } from "../state/action-creators";
-import axios from "axios";
+import { fetchQuiz, selectAnswer, postAnswer } from "../state/action-creators";
+
+
 
  function Quiz(props) {
 
+  const newObj = {
+    quiz_id: props.thisQuiz.quiz_id,
+    answer_id: props.thisAnswer1.answer_id
+   }
+   const newObj1 = {
+    quiz_id: props.thisQuiz.quiz_id,
+    answer_id: props.thisAnswer2.answer_id
+  } 
+  const onSubmit = (e) => {
+    e.preventDefault()
+    console.log("here")
+    props.postAnswer(showSelected())
+  }
+
   useEffect(() => {
-    
-    props.setQuiz();
-    axios.get("http://localhost:9000/api/quiz/next")
-    .then(res => {
-      console.log(res.data.answers[1].text)
-      props.fetchSuccess(res.data.question, res.data.answers[0].text, res.data.answers[1].text);
-    })
-    .catch(err => {
-      console.log(err);
-    })
+    props.fetchQuiz();
+   
+   
     
   },[])
   
-   const { loading } = props;
-   console.log(props.quiz)
-   
+
+  const onClick = () => {
+    props.selectAnswer()
+  }
+
+
+ 
+
+const showSelected = () => {
+ 
+  if(props.selected === false){
+    return newObj
+  } else {
+    return newObj1
+  }
+}
+
+
    
   return (
     <div id="wrapper">
       {
         // quiz already in state? Let's use that, otherwise render "Loading next quiz..."
-        !props.quiz.loading ? (
+        !props.loading ? (
           <>
-            <h2>{props.quiz.question}</h2>
-
-            <div id="quizAnswers">
-              <div className="answer selected">
-                A function
-                <button>
-                  SELECTED
-                </button>
-              </div>
-
-              <div className="answer">
-                An elephant{}
+            <h1>{props.thisQuiz.question}</h1>
+           {/* {props.selected ? <div id='quizAnswers'>
+             <div className='answer selected'>{props.thisAnswer1} <button>
+               SELECTED</button></div>
+           </div> : <div className="answer">
+               {props.thisAnswer2}
                 <button>
                   Select
                 </button>
-              </div>
+              </div>} */}
+
+
+            <div id="quizAnswers">
+              { !props.selected ? 
+              <div className="answer selected">
+                {props.thisAnswer1.text}
+                <button onClick={onClick}>
+                  
+                  SELECTED
+                </button>
+              </div> : <div className="answer ">
+                {props.thisAnswer1.text}
+                <button onClick={onClick}>
+                  
+                  Select
+                </button>
+              </div> }
+              { !props.selected ? 
+             <div className="answer">
+             {props.thisAnswer2.text}
+             <button onClick={onClick}>
+                  
+                  Select
+                </button>
+              </div>   :
+                <div className="answer selected">
+                {props.thisAnswer2.text}
+                <button onClick={onClick}>
+                  
+                SELECTED
+                </button>
+              </div> }
+
+
+
+
+              {/* <div className="answer ">
+               {props.thisAnswer2}
+                <button >
+                  Select
+                </button> 
+              </div> */}
             </div>
 
-            <button id="submitAnswerBtn">Submit answer</button>
+            <button onClick={onSubmit} disabled={false} id="submitAnswerBtn">Submit answer</button>
           </>
         ) : 'Loading next quiz...'
       }
@@ -55,11 +114,15 @@ import axios from "axios";
   )
 }
 const mapStateToProps = (state) => {
+  // console.log(state)
   return {
-   ...state,
-    question: state.question,
-    
-    loading: state.loading
-  }
+   thisQuiz: state.quiz,
+   loading: state.loadingReducer,
+   thisAnswer1: state.answerReducer,
+   thisAnswer2: state.answerReducer2,
+   selected: state.selectedAnswer
 }
-export default connect(mapStateToProps, { setQuiz, fetchSuccess })(Quiz);
+}
+
+
+export default connect(mapStateToProps, {fetchQuiz, selectAnswer, postAnswer })(Quiz);
