@@ -84,7 +84,7 @@ function selectedAnswer2(state = initialSelectedAnswerState2, action) {
     case SELECTED2:
       return state === true ? true : true
     default:
-      return state;
+      return false;
   }
 }
 
@@ -108,7 +108,7 @@ function form(state = initialFormState, action) {
     case SET_FORM:
       return action.payload
     case RESET_FORM:
-      return initialFormState
+      return action.payload
   }
   return state
 }

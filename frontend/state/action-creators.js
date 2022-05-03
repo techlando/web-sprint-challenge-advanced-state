@@ -70,7 +70,7 @@ export function setForm(input) {
  }
 
 export function resetForm(form) { 
-  return {type: RESET_FORM, payload: form}
+  return {type: RESET_FORM, payload: ""}
 }
 
 // ❗ Async action creators
@@ -121,6 +121,8 @@ export function postAnswer(answer) {
       dispatch(selectAnswer())
       dispatch(setMessage(res.data.message))
       dispatch(fetchQuiz())
+      dispatch(selectAnswer2(false))
+     
     })
     .catch(err => {
       console.log(err)
@@ -137,7 +139,7 @@ export function postQuiz(form) {
      
      
       dispatch(setMessage(`Congrats: "${res.data.question}" is a great question!`))
-      dispatch(resetForm(form))
+     
     })
     .catch(err => {
       console.log(err)

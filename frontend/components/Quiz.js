@@ -5,7 +5,7 @@ import { fetchQuiz, selectAnswer, postAnswer, selectAnswer2 } from "../state/act
 
 
  function Quiz(props) {
-
+  console.log(props)
   const newObj = {
     quiz_id: props.thisQuiz.quiz_id,
     answer_id: props.thisAnswer1.answer_id
@@ -18,6 +18,7 @@ import { fetchQuiz, selectAnswer, postAnswer, selectAnswer2 } from "../state/act
     e.preventDefault()
     console.log("here")
     props.postAnswer(showSelected())
+   
   }
 
   useEffect(() => {
