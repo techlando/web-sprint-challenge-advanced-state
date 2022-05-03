@@ -19,10 +19,10 @@ const coolObj = {
    
     [evt.target.name]: evt.target.value
   })
-    if(props.form == ""){
+    if(props.form.newQuestion == ""){
       return props.form
     } else {
-      return props.form
+      return props.form.newQuestion.value
     }
   
   }
