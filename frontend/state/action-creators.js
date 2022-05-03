@@ -14,6 +14,7 @@ export const SET_FORM = "SET_FORM"
 export const RESET_FORM = "RESET_FORM"
 export const MOVE_CLOCKWISE = "MOVE_CLOCKWISE"
 export const MOVE_COUNTER = "MOVE_COUNTER"
+export const SELECTED2 = "SELECTED2"
 
 const loadQuiz = (quizData) => {
   return {type: LOAD_QUIZ, payload: quizData}
@@ -46,6 +47,10 @@ export function moveCounterClockwise(current) {
 
 export function selectAnswer() { 
   return {type: SELECTED}
+}
+
+export function selectAnswer2(){
+  return {type: SELECTED2}
 }
 
 // export function setMessage(message) { 

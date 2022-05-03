@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react'
 import { connect } from "react-redux";
-import { fetchQuiz, selectAnswer, postAnswer } from "../state/action-creators";
+import { fetchQuiz, selectAnswer, postAnswer, selectAnswer2 } from "../state/action-creators";
 
 
 
  function Quiz(props) {
-
+console.log(props)
   const newObj = {
     quiz_id: props.thisQuiz.quiz_id,
     answer_id: props.thisAnswer1.answer_id
@@ -28,10 +28,15 @@ import { fetchQuiz, selectAnswer, postAnswer } from "../state/action-creators";
   },[])
   
 
-  const onClick = () => {
+  const onClick1 = () => {
     props.selectAnswer()
+    props.selectAnswer2(true)
   }
 
+
+  const onClick2 = () => {
+    props.selectAnswer2(true)
+  }
 
  
 
@@ -44,7 +49,20 @@ const showSelected = () => {
   }
 }
 
+const onDisabled = () => {
+  
+  
 
+  console.log("here", props.select)
+  if(props.select === false){
+    return true
+  } else {
+    false
+  }
+}
+
+console.log(props.select, "select")
+console.log(props.selected, "selected")
    
   return (
     <div id="wrapper">
@@ -65,35 +83,47 @@ const showSelected = () => {
 
 
             <div id="quizAnswers">
-              { !props.selected ? 
+              {  props.select ? !props.selected ? 
               <div className="answer selected">
                 {props.thisAnswer1.text}
-                <button onClick={onClick}>
+                <button onClick={onClick1}>
                   
-                  SELECTED
+                SELECTED
                 </button>
               </div> : <div className="answer ">
                 {props.thisAnswer1.text}
-                <button onClick={onClick}>
+                <button onClick={onClick1}>
                   
-                  Select
+                Select
+                </button>
+              </div>  :<div className="answer ">
+                {props.thisAnswer1.text}
+                <button onClick={onClick1}>
+                  
+                Select
                 </button>
               </div> }
-              { !props.selected ? 
+              {  props.select ? !props.selected   ? 
              <div className="answer">
              {props.thisAnswer2.text}
-             <button onClick={onClick}>
+             <button onClick={onClick1}>
                   
                   Select
                 </button>
               </div>   :
                 <div className="answer selected">
                 {props.thisAnswer2.text}
-                <button onClick={onClick}>
+                <button onClick={onClick1}>
                   
                 SELECTED
                 </button>
-              </div> }
+              </div>  : <div className="answer">
+             {props.thisAnswer2.text}
+             <button onClick={onClick2}>
+                  
+                  Select
+                </button>
+              </div>  }
 
 
 
@@ -106,7 +136,7 @@ const showSelected = () => {
               </div> */}
             </div>
 
-            <button onClick={onSubmit} disabled={false} id="submitAnswerBtn">Submit answer</button>
+            <button onClick={onSubmit} disabled={onDisabled()} id="submitAnswerBtn">Submit answer</button>
           </>
         ) : 'Loading next quiz...'
       }
@@ -114,15 +144,16 @@ const showSelected = () => {
   )
 }
 const mapStateToProps = (state) => {
-  // console.log(state)
+  console.log(state)
   return {
    thisQuiz: state.quiz,
    loading: state.loadingReducer,
    thisAnswer1: state.answerReducer,
    thisAnswer2: state.answerReducer2,
-   selected: state.selectedAnswer
+   selected: state.selectedAnswer,
+   select: state.selectedAnswer2
 }
 }
 
 
-export default connect(mapStateToProps, {fetchQuiz, selectAnswer, postAnswer })(Quiz);
+export default connect(mapStateToProps, {fetchQuiz, selectAnswer, selectAnswer2, postAnswer })(Quiz);
