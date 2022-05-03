@@ -1,11 +1,11 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { connect } from "react-redux";
 import { fetchQuiz, selectAnswer, postAnswer, selectAnswer2 } from "../state/action-creators";
 
 
 
  function Quiz(props) {
-  console.log(props)
+  
   const newObj = {
     quiz_id: props.thisQuiz.quiz_id,
     answer_id: props.thisAnswer1.answer_id
@@ -16,13 +16,19 @@ import { fetchQuiz, selectAnswer, postAnswer, selectAnswer2 } from "../state/act
   } 
   const onSubmit = (e) => {
     e.preventDefault()
-    console.log("here")
+    
     props.postAnswer(showSelected())
    
   }
-
+ 
   useEffect(() => {
-    props.fetchQuiz();
+  
+    if(props.thisQuiz == ""){
+      props.fetchQuiz()
+    } else {
+      props.thisQuiz
+    }
+    
    
    
     
@@ -54,7 +60,7 @@ const onDisabled = () => {
   
   
 
-  console.log("here", props.select)
+  
   if(props.select === false){
     return true
   } else {
@@ -62,8 +68,7 @@ const onDisabled = () => {
   }
 }
 
-console.log(props.select, "select")
-console.log(props.selected, "selected")
+
    
   return (
     <div id="wrapper">
@@ -145,7 +150,7 @@ console.log(props.selected, "selected")
   )
 }
 const mapStateToProps = (state) => {
-  console.log(state)
+ console.log(state.quiz)
   return {
    thisQuiz: state.quiz,
    loading: state.loadingReducer,

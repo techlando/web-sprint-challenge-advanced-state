@@ -79,6 +79,7 @@ export function fetchQuiz() {
     // First, dispatch an action to reset the quiz state (so the "Loading next quiz..." message can display)
     // On successful GET:
     // - Dispatch an action to send the obtained quiz to its state
+   
     dispatch(loading())
     axios.get("http://localhost:9000/api/quiz/next")
     .then(res => {
@@ -88,27 +89,14 @@ export function fetchQuiz() {
       dispatch(loadAnswer2(res.data.answers[1]))
       dispatch(loading());
       // dispatch(setMessage())
-     
+     console.log("here big big daddy is " )
     })
     .catch(err => {
       console.log(err)
     })
   }
 }
-// export function fetchAnswer(){
-//   return function (dispatch) {
-//     dispatch(loading())
-//     axios.get("http://localhost:9000/api/quiz/next")
-//     .then(res => {
-//       console.log(res.data.answers[1].text)
-//       dispatch(loading())
-//       dispatch(loadAnswer(res.data.answers[1].text))
-//     })
-//     .catch(err => {
-//       console.log(err)
-//     })
-//   }
-// }
+
 export function postAnswer(answer) {
   return function (dispatch) {
     // On successful POST:
