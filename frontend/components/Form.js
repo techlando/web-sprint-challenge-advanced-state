@@ -23,6 +23,17 @@ const coolObj = {
     
   
   }
+
+  // console.log(props.form.newQuestion)
+  const isDisabled = () => {
+    if(props.form.newQuestion.trim().length >= 1 && props.form.newTrueAnswer.trim().length >= 1 && props.form.newFalseAnswer.trim().length >= 1) {
+      return false 
+     
+    } else {
+      return true
+    }
+  }
+  
   
 
   const onSubmit = evt => {
@@ -39,7 +50,7 @@ const coolObj = {
       <input maxLength={50} onChange={onChange} id="newQuestion" placeholder="Enter question" />
       <input maxLength={50} onChange={onChange} id="newTrueAnswer" placeholder="Enter true answer" />
       <input maxLength={50} onChange={onChange} id="newFalseAnswer" placeholder="Enter false answer" />
-      <button id="submitNewQuizBtn">Submit new quiz</button>
+      <button disabled={isDisabled()}id="submitNewQuizBtn">Submit new quiz</button>
     </form>
   )
 }
