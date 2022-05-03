@@ -5,7 +5,7 @@ import { fetchQuiz, selectAnswer, postAnswer, selectAnswer2 } from "../state/act
 
 
  function Quiz(props) {
-  
+  console.log(props)
   const newObj = {
     quiz_id: props.thisQuiz.quiz_id,
     answer_id: props.thisAnswer1.answer_id
@@ -18,7 +18,7 @@ import { fetchQuiz, selectAnswer, postAnswer, selectAnswer2 } from "../state/act
     e.preventDefault()
     
     props.postAnswer(showSelected())
-   
+    props.selectAnswer2()
   }
  
   useEffect(() => {
@@ -119,7 +119,7 @@ const onDisabled = () => {
               </div>   :
                 <div className="answer selected">
                 {props.thisAnswer2.text}
-                <button onClick={onClick1}>
+                <button onClick={onClick2}>
                   
                 SELECTED
                 </button>
@@ -150,7 +150,7 @@ const onDisabled = () => {
   )
 }
 const mapStateToProps = (state) => {
- console.log(state.quiz)
+
   return {
    thisQuiz: state.quiz,
    loading: state.loadingReducer,

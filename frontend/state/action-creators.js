@@ -83,13 +83,12 @@ export function fetchQuiz() {
     dispatch(loading())
     axios.get("http://localhost:9000/api/quiz/next")
     .then(res => {
-      // console.log(res)
+   
       dispatch(loadQuiz(res.data))
       dispatch(loadAnswer1(res.data.answers[0]))
       dispatch(loadAnswer2(res.data.answers[1]))
       dispatch(loading());
-      // dispatch(setMessage())
-     console.log("here big big daddy is " )
+   
     })
     .catch(err => {
       console.log(err)

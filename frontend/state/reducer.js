@@ -26,7 +26,7 @@ const initialQuizState = [];
 function quiz(state = initialQuizState, action) {
   switch(action.type){
     case LOAD_QUIZ:
-      return  state = initialQuizState ? action.payload : state
+      return action.payload 
     
     default:
       return (state);
@@ -84,7 +84,7 @@ function selectedAnswer2(state = initialSelectedAnswerState2, action) {
     case SELECTED2:
       return state === true ? true : true
     default:
-      return false;
+      return state
   }
 }
 

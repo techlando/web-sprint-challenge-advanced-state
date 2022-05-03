@@ -4,7 +4,7 @@ import * as actionCreators from '../state/action-creators'
 
 export function Form(props) {
  
-console.log(props)
+
 const coolObj = {
   question_text: props.form.newQuestion,
   true_answer_text: props.form.newTrueAnswer,

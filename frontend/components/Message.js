@@ -3,7 +3,7 @@ import { connect} from "react-redux"
 import setMessage from "../state/reducer"
 
  function Message(props) {
-   console.log(props.Message)
+  
  
   return <div id="message">{props.Message} </div>
 }
